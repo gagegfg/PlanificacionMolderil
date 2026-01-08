@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Config for CDN usage (simulated here for verify/intellisense, 
+   actual config will be in the script tag in HTML) */
+
+:root {
+    --neon-cyan: #06b6d4;
+    --neon-violet: #8b5cf6;
+    --neon-lime: #84cc16;
+}
+
+body {
+    background-color: #09090b;
+    /* zinc-950 */
+    color: #e4e4e7;
+    /* zinc-200 */
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Glassmorphism Utilities */
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-input {
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.glass-input:focus {
+    border-color: var(--neon-cyan);
+    outline: none;
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+.neon-text-cyan {
+    text-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #18181b;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #3f3f46;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #52525b;
+}
+
+/* Chart.js Dark Mode overrides */
+canvas {
+    filter: drop-shadow(0 0 5px rgba(0, 0, 0, 0.5));
+}

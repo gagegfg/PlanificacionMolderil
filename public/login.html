@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capataz-Dash | Login</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="css/styles.css" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        neon: {
+                            cyan: '#06b6d4',
+                            violet: '#8b5cf6',
+                            lime: '#84cc16'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen w-screen overflow-hidden flex items-center justify-center bg-[url('https://images.unsplash.com/photo-1550684848-fac1c5b4e853?q=80&w=2670&auto=format&fit=crop')] bg-cover bg-center">
+    
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm"></div>
+
+    <!-- Login Card -->
+    <div class="relative z-10 w-full max-w-md p-8 rounded-2xl glass-card transform transition-all hover:scale-[1.01] duration-500">
+        <div class="flex flex-col items-center mb-8">
+            <!-- Placeholder for Logo -->
+            <div class="h-16 w-16 mb-4 rounded-full bg-white/5 flex items-center justify-center border border-white/10 shadow-[0_0_15px_rgba(6,182,212,0.3)]">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-neon-cyan" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold text-white tracking-tight">Capataz<span class="text-neon-cyan">Dash</span></h1>
+            <p class="text-zinc-400 text-sm mt-2">Enterprise Neon Edition</p>
+        </div>
+
+        <form id="login-form" class="space-y-6">
+            <div>
+                <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Usuario / Email</label>
+                <input type="email" id="email" required 
+                    class="w-full px-4 py-3 rounded-lg glass-input placeholder-zinc-500 transition-all"
+                    placeholder="admin@empresa.com">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-zinc-300 mb-2">Contraseña</label>
+                <input type="password" id="password" required 
+                    class="w-full px-4 py-3 rounded-lg glass-input placeholder-zinc-500 transition-all"
+                    placeholder="••••••••">
+            </div>
+
+            <div id="error-msg" class="hidden text-red-400 text-sm text-center bg-red-900/20 p-2 rounded border border-red-500/30">
+                Credenciales incorrectas.
+            </div>
+
+            <button type="submit" 
+                class="w-full py-3 px-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg shadow-lg shadow-cyan-500/20 transition-all transform hover:-translate-y-0.5 border border-white/10">
+                Ingresar al Sistema
+            </button>
+        </form>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script>
+        // Init script handled in auth.js but we can add UI specific logic here if needed
+        document.addEventListener('DOMContentLoaded', () => {
+             // Check if already logged in
+             checkSession().then(session => {
+                 if(session) window.location.href = 'index.html';
+             });
+        });
+
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const errorMsg = document.getElementById('error-msg');
+            
+            errorMsg.classList.add('hidden');
+            
+            const { data, error } = await signIn(email, password);
+            
+            if (error) {
+                console.error("Login Error:", error);
+                errorMsg.textContent = "Error: " + error.message;
+                errorMsg.classList.remove('hidden');
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+    </script>
+</body>
+</html>
