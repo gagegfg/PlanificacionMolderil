@@ -27,12 +27,15 @@ async function checkSession() {
 }
 
 // Protected Route Logic
-if (window.location.pathname.includes('index.html')) {
+// Protected Route Logic
+// Check if we are NOT on login page
+const currentPath = window.location.pathname;
+if (!currentPath.includes('login.html')) {
     checkSession().then(session => {
         if (!session) {
+            // If strictly on root or index, redirect. Avoid loops if already redirecting.
             window.location.href = 'login.html';
         } else {
-            // Optional: User info setup
             console.log("Logged in as:", session.user.email);
         }
     });
