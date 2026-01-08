@@ -1,0 +1,13 @@
+{
+    "name": "capataz-dash",
+    "version": "1.0.0",
+    "description": "Dashboard de Control de Producción",
+    "main": "index.js",
+    "scripts": {},
+    "dependencies": {
+        "@supabase/supabase-js": "^2.39.0"
+    },
+    "engines": {
+        "node": "18.x"
+    }
+}
