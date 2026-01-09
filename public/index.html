@@ -50,23 +50,62 @@
 
         <!-- Filters -->
         <div class="flex items-center gap-3">
+            <!-- Date Filter -->
             <div class="relative group">
                 <span
                     class="material-symbols-rounded absolute left-3 top-2.5 text-zinc-400 group-hover:text-neon-violet transition-colors text-[20px]">calendar_today</span>
                 <input type="month"
-                    class="pl-10 pr-4 py-2 rounded-full glass-input text-sm w-40 focus:w-48 transition-all cursor-pointer"
+                    class="pl-10 pr-4 py-2 rounded-full glass-input text-sm w-36 focus:w-40 transition-all cursor-pointer"
                     id="filter-date">
             </div>
 
+            <!-- SKU Filter -->
+            <div class="relative group">
+                <span
+                    class="material-symbols-rounded absolute left-3 top-2.5 text-zinc-400 group-hover:text-neon-cyan transition-colors text-[20px]">qr_code_2</span>
+                <input list="sku-list" placeholder="SKU / Art."
+                    class="pl-10 pr-4 py-2 rounded-full glass-input text-sm w-32 focus:w-40 transition-all"
+                    id="filter-sku">
+                <datalist id="sku-list">
+                    <!-- Populated by JS -->
+                </datalist>
+            </div>
+
+            <!-- Familia Filter -->
+            <div class="relative group">
+                <span
+                    class="material-symbols-rounded absolute left-3 top-2.5 text-zinc-400 group-hover:text-neon-cyan transition-colors text-[20px]">category</span>
+                <select
+                    class="pl-10 pr-8 py-2 rounded-full glass-input text-sm appearance-none cursor-pointer w-28 focus:w-36 transition-all"
+                    id="filter-familia">
+                    <option value="all">Familia</option>
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+
+            <!-- Molde Filter -->
+            <div class="relative group hidden lg:block">
+                <span
+                    class="material-symbols-rounded absolute left-3 top-2.5 text-zinc-400 group-hover:text-neon-cyan transition-colors text-[20px]">view_in_ar</span>
+                <select
+                    class="pl-10 pr-8 py-2 rounded-full glass-input text-sm appearance-none cursor-pointer w-28 focus:w-36 transition-all"
+                    id="filter-molde">
+                    <option value="all">Molde</option>
+                    <!-- Populated by JS -->
+                </select>
+            </div>
+
+            <!-- Linea Filter -->
             <div class="relative group">
                 <span
                     class="material-symbols-rounded absolute left-3 top-2.5 text-zinc-400 group-hover:text-neon-cyan transition-colors text-[20px]">precision_manufacturing</span>
                 <select
                     class="pl-10 pr-8 py-2 rounded-full glass-input text-sm appearance-none cursor-pointer hover:bg-white/5 transition-colors"
                     id="filter-line">
-                    <option value="all">Todas las Líneas</option>
+                    <option value="all">Línea</option>
                     <option value="L1">Línea 1</option>
                     <option value="L2">Línea 2</option>
+                    <option value="L3">Línea 3</option>
                 </select>
             </div>
         </div>
@@ -86,8 +125,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="pt-[90px] px-6 pb-8 max-w-[1600px] mx-auto space-y-6">
+    <!-- Main Content (Hidden by default until Auth) -->
+    <main id="app-content" style="display: none;" class="pt-[90px] px-6 pb-8 max-w-[1600px] mx-auto space-y-6">
 
         <!-- KPI Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

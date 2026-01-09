@@ -1,0 +1,84 @@
+GUÍA DE IMPLEMENTACIÓN - CAPATAZ DASH
+
+PASO 1: BASE DE DATOS (SUPABASE)
+--------------------------------
+1. Entra a tu proyecto en Supabase (supabase.com).
+2. Ve a la sección "SQL Editor" (Icono de terminal en la barra lateral).
+3. Abre el archivo "supabase_schema.sql" que generé en la carpeta de tu proyecto.
+4. Copia todo su contenido y pégalo en el editor de Supabase.
+5. Haz clic en "Run" para crear las tablas y las políticas de seguridad.
+
+PASO 2: LOGO DE LA EMPRESA
+--------------------------
+1. Consigue tu logo en formato PNG con fondo transparente.
+2. Renómbralo exactamente como: logo.png
+3. Muévelo a la carpeta "public" dentro de este proyecto:
+   c:\Users\Gabriel\Documents\proyectivoMolderil\public\logo.png
+   (El tamaño ideal es de unos 200px de ancho).
+
+PASO 3: CONEXIÓN FRONTEND (Obtener Claves de Supabase)
+------------------------------------------------------
+1. Abre el archivo en este proyecto: `public\js\auth.js`.
+2. Busca las líneas al inicio:
+   `const SUPABASE_URL = '...'`
+   `const SUPABASE_ANON_KEY = '...'`
+3. Ve a tu navegador y entra a: https://supabase.com/dashboard/projects
+4. Selecciona tu proyecto ("Capataz" o el nombre que le hayas puesto).
+5. En la barra lateral izquierda, baja hasta el final y haz clic en el ícono de engranaje invocado como **"Project Settings" (Configuración)**.
+6. En el menú que aparece, elige la opción **"API"**.
+7. Verás una sección llamada **"Project URL"**. Copia esa dirección (ej: https://kjsdfksjd.supabase.co) y pégala  dentro de las comillas de `SUPABASE_URL` en el archivo `auth.js`.
+8. Justo debajo, verás **"Project API keys"**. Busca la que dice `anon` `public`.
+9. Copia esa clave larga y pégala dentro de las comillas de `SUPABASE_ANON_KEY` en el archivo `auth.js`.
+10. Guarda el archivo `auth.js`.
+
+PASO 4: DESPLIEGUE EN VERCEL (Cómo ponerlo online)
+--------------------------------------------------
+Este proceso requiere que tu código esté primero en GitHub.
+
+A. SUBIR CÓDIGO A GITHUB
+1. Crea una cuenta en https://github.com si no tienes una.
+2. Crea un nuevo repositorio (botón "New" o "+") y llámalo `capataz-dash`.
+3. Sube los archivos de esta carpeta a ese repositorio.
+   - Si usas Git instalado en tu PC (recomendado):
+     `git init`
+     `git add .`
+     `git commit -m "Initial commit"`
+     `git remote add origin https://github.com/TU_USUARIO/capataz-dash.git`
+     `git push -u origin master`
+   - Si NO usas Git: En la página de tu repositorio en GitHub, busca el enlace "uploading an existing file" y arrastra todos los archivos y carpetas de tu proyecto ahí. Confirma los cambios.
+
+B. CONECTAR CON VERCEL
+1. Crea una cuenta en https://vercel.com (puedes usar "Continue with GitHub").
+2. En tu "Dashboard" de Vercel, haz clic en el botón **"Add New..."** y luego **"Project"**.
+3. Verás una lista de tus repositorios de GitHub. Busca `capataz-dash` y haz clic en **"Import"**.
+
+C. CONFIGURAR VARIABLES DE ENTORNO (Crucial para el Backend)
+1. En la pantalla de configuración del proyecto en Vercel, busca la sección que dice **"Environment Variables"** (está colapsada, haz clic para abrirla).
+2. Agrega la primera variable:
+   - Name: `SUPABASE_URL`
+   - Value: (Pega la misma URL del Paso 3.7)
+   - Haz clic en **"Add"**.
+3. Necesitamos una clave especial para que el sistema actualice los feriados automáticamente. Vuelve al panel de Supabase -> Settings -> API.
+4. En "Project API keys", busca la que dice **`service_role` `secret`** (Ojo: esta es diferente a la anterior, esta dice "secret").
+   - Haz clic en "Reveal" para copiarla.
+5. Vuelve a Vercel y agrega la segunda variable:
+   - Name: `SUPABASE_SERVICE_ROLE_KEY`
+   - Value: (Pega la clave `service_role` secreta)
+   - Haz clic en **"Add"**.
+
+D. FINALIZAR
+1. Dale al botón azul **"Deploy"**.
+2. Espera unos segundos a que Vercel construya el sitio.
+3. Cuando termine, verás un cohete y el link de tu dashboard (ej: `capataz-dash.vercel.app`).
+PASO 5: CREAR USUARIO (IMPORTANTE)
+----------------------------------
+Para poder entrar, necesitas un usuario registrado.
+1. Ve a tu proyecto en Supabase -> Authentication.
+2. Haz clic en "Users" en el menú lateral.
+3. Haz clic en "Add User" (arriba a la derecha).
+4. Elige "Create New User".
+5. Ingresa un email (ej: admin@empresa.com) y una contraseña segura.
+6. Haz clic en "Create User".
+   (Por defecto, Supabase puede requerir confirmar email. Para pruebas, puedes ir a Authentication -> Providers -> Email y desactivar "Confirm email" o simplemente confirmar el mail que te llegue).
+
+Ahora sí, cuando entres a tu sitio verás la pantalla de Login. Ingresa esos datos y entrarás al Dashboard.

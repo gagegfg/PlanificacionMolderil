@@ -37,6 +37,9 @@ if (!currentPath.includes('login.html')) {
             window.location.href = 'login.html';
         } else {
             console.log("Logged in as:", session.user.email);
+            // REVEAL CONTENT
+            const appContent = document.getElementById('app-content');
+            if (appContent) appContent.style.display = 'block';
         }
     });
 
